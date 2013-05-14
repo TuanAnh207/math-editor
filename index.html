@@ -9,6 +9,7 @@
     </script>
 
     <script src="javascript/mathquill.js"></script>
+    <script src="javascript/custom-js.js"></script>
 
 
 </head>
@@ -42,6 +43,18 @@
         </div>
     </div>
 
+    <div id="mathquill-in-ContentEditable-demo">
+
+        <h2>Inserting a Mathquill Editable Box within a ContentEditable div Example</h2>
+
+        <input type="button" onmousedown="insertNodeOverSelection(document.createTextNode('<b>Hello!</b>'), document.getElementById('test'));" value="insert">
+
+        <div id="ContentEditable-2" contenteditable="true">
+            <div id="test" style="border: solid 1px green">
+                This is where the insertion will happen
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
