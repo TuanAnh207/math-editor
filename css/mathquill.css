@@ -1,0 +1,354 @@
+/*
+ * LaTeX Math in pure HTML and CSS -- No images whatsoever
+ * v0.xa
+ * by Jay and Han
+ * Lesser GPL Licensed: http: //www.gnu.org/licenses/lgpl.html
+ * 
+ * This file is automatically included by mathquill.js
+ * 
+ */
+
+/*Specify a font named "Symbola", and specify the URL where it can be found*/
+@font-face {
+  font-family: Symbola;
+  src: url(font/Symbola.eot);
+  src: local("Symbola Regular"), local("Symbola"),
+    url(font/Symbola.ttf) format("truetype"),
+    url(font/Symbola.otf) format("opentype"),
+    url(font/Symbola.svg#Symbola) format("svg");
+}
+
+/* CSS Syntax Review
+ * Selector {property:value;}
+ * h1 {color:blue;} <-- For any element
+ * .classname {color:blue;} <-- For any programmer defined class
+ */
+
+/* The class selector ".classname" is used to specify a style for a group of elements*/
+/* Selectors, such as ".classname", can be grouped together.  Separate each selector with a comma*/
+/* It is possible to apply a style for a selector within a selector, for example, for p.center {text-align:center;} all p elements with class="center" will be center-aligned*/
+.mathquill-editable,
+.mathquill-rendered-math,
+.mathquill-rendered-math .underline, /* Selects all elements with class="underline" within class="mathquill..."*/
+.mathquill-rendered-math .overline,
+.mathquill-rendered-math .font,
+.mathquill-rendered-math sup, /*The <sup> tag defines superscript text*/
+.mathquill-rendered-math sub, /*The <sub> tag defines subscript text*/
+.mathquill-rendered-math .fraction,
+.mathquill-rendered-math .sqrt-stem,
+.mathquill-rendered-math .array,
+.mathquill-rendered-math .cmd {
+  display: -moz-inline-box; /* Mozilla equivalent to inline-block display value*/
+  display: inline-block; /* The element is placed as an inline element (on the same line as adjacent content), but it behaves as a block element*/
+  padding-top: .075em; /*The padding properties define the space between the element border and the element content.*/
+}
+.mathquill-editable, .mathquill-embedded-latex .mathquill-editable {
+  border: 1px solid gray; /*The border properties allow you to specify the style and color of an element's border.*/
+  padding: 2px; /* does this override passing-top for .mathquill-editable?*/
+}
+.mathquill-embedded-latex .mathquill-editable {
+  margin: 1px; /* The margin clears an area around an element (outside the border)*/
+}
+.mathquill-textbox {
+  overflow-x: auto; /* Cause a scrolling mechanism to be provided for overflowing boxes in the left/right direction*/
+  overflow-y: hidden; /*so IE8 won't show a vertical scrollbar*/
+}
+
+.mathquill-editable .textarea, .mathquill-rendered-math .textarea {
+  position: relative; /* The element is positioned relative to its normal position*/
+  user-select: text; /* The text can be selected by the user*/
+  -moz-user-select: text;
+  -webkit-user-select: text;
+}
+
+/* textarea is an HTML element/tag, while .textarea is a clas with class="textarea". The <textarea> tag defines a multi-line text input control.*/
+.mathquill-editable .textarea textarea, .mathquill-rendered-math .textarea textarea, .mathquill-rendered-math .selectable {
+  position: absolute; /* The element is positioned relative to its first positioned (not static) ancestor element*/
+  z-index: -1; /* The z-index property specifies the stack order of an element. A z-index of -1 will place the element behind anything with z >= 0. z-index only works on positioned elements (position:absolute, position:relative, or position:fixed)*/
+  height: 1px; /* The height property sets the height of an element.*/
+  width: 1px; /* The width property sets the width of an element.*/
+  opacity: 0; /* Specifies opacity. From 0.0 (fully transparent) to 1.0 (fully opaque)*/
+  border: none;
+  outline: none; /* An outline is a line that is drawn around elements (outside the borders) to make the element stand out*/
+  overflow: hidden; /* Overflow is clipped, the rest of the content will be invisible*/
+  user-select: text;
+  -moz-user-select: text;
+  -webkit-user-select: text;
+}
+
+.mathquill-editable .cursor {
+  border-left: 1px solid black;
+  margin-right: -1px; /* Allows the content to overlap the block/element on the right margin*/
+  position: relative; /* The element is positioned relative to its normal position*/
+  z-index: 1; /* z-index only works on positioned elements (position:absolute, position:relative, or position:fixed).*/
+}
+.mathquill-editable .cursor.blink {
+  visibility: hidden; /* The element is invisible (but still takes up space)*/
+}
+
+/* The :after psuedo-class selector inserts content after the selected element(s).*/
+.mathquill-editable.empty:after, .mathquill-textbox:after, .mathquill-rendered-math .empty:after {
+  visibility: hidden;
+  content: 'c'; /* The content property is used with the :before and :after pseudo-elements, to insert generated content.*/
+}
+
+/* From MathQuill programmers: separated from above because unrecognized pseudoclasses invalidate the entire selector*/
+/* The :only-child selector matches every element that is the only child of its parent.*/
+/* The :last-child selector matches every element that is the last child of its parent.*/
+/* The + selector is used to select elements that are placed immediately after (not inside) the first specified element. It is an adjacent sibling selectors, so .textarea+.cursor selects any .cursor that is immediately preceeded by a .textarea (provided they share the same parent)*/
+.mathquill-editable .cursor:only-child:after,
+.mathquill-editable .textarea+.cursor:last-child:after {
+  visibility: hidden;
+  content: 'c';
+}
+
+/* The * selector selects all elements, the * selector can also select all elements inside another element.  It is the universal selector, it matches the name of any element type. */
+.mathquill-editable .selection *,
+.mathquill-rendered-math .selection * {
+  background: #B4D5FE; /* Sets the background color.  This is a light blue color*/
+  background: Highlight; /* "Highlight" is the light blue color you see when you drag and scroll on any webpage.  It is a "Color Name" specification for a color (vs. Hex, RGB, etc.) It is a darker shade of blue than the #B4D5FE color previously specified*/
+  color: HighlightText; /* Color specifies the color of text. HighLightText is the white color of text that occurs when you highlight (drag and scroll) text on the web*/
+  border-color: HighlightText; /* The border-color property sets the color of an element's four borders*/
+}
+.mathquill-editable .selection.blur *,
+.mathquill-rendered-math .selection.blur * {
+  background: #D4D4D4; /* grey background*/
+  color: black;
+  border-color: black;
+}
+.mathquill-editable .selection .selection.blur *,
+.mathquill-rendered-math .selection .selection.blur * {
+  background: #ABF; /* light blue*/
+}
+.mathquill-editable .selection.blur .selection.blur *,
+.mathquill-rendered-math .selection.blur .selection.blur * {
+  background: #AAA; /* grey*/
+  background: rgba(0, 0, 0, .15); /* grey*/
+}
+
+.mathquill-editable, .mathquill-rendered-math {
+  cursor: text; /* The cursor property specifies the type of cursor to be displayed when pointing on an element.  Text is the standard cursor when hovering over text.*/
+  white-space: pre-wrap; /* Whitespace is preserved by the browser. Text will wrap when necessary, and on line breaks*/
+  font-family: Symbola, "Times New Roman", serif; /* The font-family property specifies the font for an element and can hold several font names as a "fallback" system*/
+}
+.mathquill-rendered-math {
+  font-variant: normal; /* Font-variant specifies if text should be displayed in a small-caps font.  In this case, nothing is changed.*/
+  font-weight: normal; /* Sets how thick or thin characters in text should be displayed*/
+  font-style: normal; /* Specifies the font style for a text.*/
+  font-size: 115%; /* Sets the size of a font*/
+  line-height: 1; /* Specifies the line height. A number will be multiplied with the current font size to set the line height*/
+}
+
+/* var is an HTML element/tag that defines a variable part of a text*/
+.mathquill-rendered-math var, .mathquill-rendered-math .text, .mathquill-rendered-math .nonSymbola {
+  font-family: "Times New Roman", Symbola, serif;
+}
+.mathquill-rendered-math * {
+  font-size: inherit; /* The font size will be inherited from the parent element*/
+  line-height: inherit; /* Line-height will be inherited from the parent element*/
+  margin: 0;
+  padding: 0;
+  border-color: black;
+  user-select: none; /* The text of the element and sub-elements will appear as if they cannot be selected. Any use of Selection however will contain these elements. */
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+.mathquill-editable.hasCursor,
+.mathquill-rendered-math .latex-command-input.hasCursor {
+  border-color: ActiveBorder; /* "ActiveColor" is a color name for a shade of grey*/
+}
+.mathquill-editable.hasCursor, .mathquill-editable .hasCursor {
+  -webkit-box-shadow: #68B4DF 0 0 3px 2px; /* box-shadow attaches one or more drop-shadows to the box. The properties are color, horizontal shadow, vertical shadow, blur distance, and size of the shadow.  The color is light blue.*/
+  -moz-box-shadow: #68B4DF 0 0 3px 2px; /* Light Blue Color*/
+  box-shadow: #68B4DF 0 0 3px 2px;
+}
+
+.mathquill-rendered-math .empty {
+  background: #ccc; /* grey*/
+}
+/* Is there any difference between this an previous statement????*/
+.mathquill-rendered-math.empty {
+  background: transparent; /* Sets the background as transparent. This is default*/
+}
+
+.mathquill-rendered-math .text {
+  font-size: 87%;
+}
+
+.mathquill-rendered-math .overline {
+  border-top: 1px solid black;
+  margin-top: 1px;
+}
+.mathquill-rendered-math .underline {
+  border-bottom: 1px solid black;
+  margin-bottom: 1px;
+}
+
+.mathquill-rendered-math .font {
+  font: 1em "Times New Roman", Symbola, serif;
+}
+.mathquill-rendered-math .font * {
+  font-family: inherit;
+  font-style: inherit;
+}
+
+.mathquill-rendered-math b,
+.mathquill-rendered-math b.font {
+  font-weight: bolder; /* Defines characters that are slightly thicker than bold*/
+}
+.mathquill-rendered-math var,
+.mathquill-rendered-math i,
+.mathquill-rendered-math i.font {
+  font-style: italic;
+}
+.mathquill-rendered-math var.florin { /* From Mathquill programmers: florin looks so much better than italic f */
+  margin: 0 -.1em; /* top and bottom margins are 0, left and right margins are -.1em*/
+}
+
+.mathquill-rendered-math big {
+  font-size: 125%;
+}
+
+.mathquill-rendered-math .roman {
+  font-style: normal; /* Browser displays a normal font style. This is default*/
+}
+
+.mathquill-rendered-math .sans-serif {
+  font-family: sans-serif, Symbola, serif;
+}
+
+.mathquill-rendered-math .monospace {
+  font-family: monospace, Symbola, serif; /* A monospace font's letters and characters each occupy the same amount of horizontal space.*/
+}
+
+.mathquill-rendered-math sup, .mathquill-rendered-math sub {
+  position: relative; /* The element is positioned relative to its normal position*/
+  font-size: 90%;
+}
+.mathquill-rendered-math sup {
+  vertical-align: .5em; /* Raises or lower an element by the specified length.*/
+}
+.mathquill-rendered-math sub {
+  vertical-align: -.4em; /* Raises or lower an element by the specified length.*/
+}
+.mathquill-rendered-math sup.nthroot {
+  margin-right: -.6em;
+  margin-left: .2em;
+  min-width: .5em; /* sets the minimum width of an element, not including padding, borders, or margins*/
+}
+.mathquill-rendered-math sup.limit, .mathquill-rendered-math sub.limit,
+.mathquill-rendered-math sup.nthroot {
+  font-size: 80%;
+}
+.mathquill-rendered-math sup.limit, .mathquill-rendered-math sup.nthroot {
+  vertical-align: .8em;
+}
+.mathquill-rendered-math sub.limit {
+  vertical-align: -.6em;
+}
+
+.mathquill-rendered-math .binary-operator {
+  padding: 0 .2em; /* top and bottom padding are 0, right and left padding are .2em*/
+}
+.mathquill-rendered-math .unary-operator {
+  padding-left: .2em;
+}
+.mathquill-rendered-math sup .binary-operator,
+.mathquill-rendered-math sub .binary-operator {
+  padding: 0 .1em; /* top and bottom padding are 0, right and left padding are .1em*/
+}
+.mathquill-rendered-math sup .unary-operator,
+.mathquill-rendered-math sub .unary-operator {
+  padding-left: .1em;
+}
+
+.mathquill-rendered-math .fraction {
+  font-size: 90%;
+  text-align: center;
+  vertical-align: -.5em;
+  padding: 0 .1em;
+}
+
+/* Comments in this section are by MathQuill programmers.*/
+.mathquill-rendered-math .fraction, x:-moz-any-link { /* Firefox 2 (and older?) only */
+  display: -moz-groupbox; /* because display:inline-block is FUBAR in Gecko < 1.9.0 */
+}
+
+/* From what I understand, "x:-moz-any-link, x:default" targets .fraction in Firefox 3, either that, or another explanation might be that it restore styles for Firefox 3.0 and newer after the previous CSS hack above*/
+.mathquill-rendered-math .fraction, x:-moz-any-link, x:default { /* From MathQuill programmers: Firefox 3+ (Gecko 1.9.0+) */
+  display: inline-block; /* The element is placed as an inline element (on the same line as adjacent content), but it behaves as a block element*/
+}
+.mathquill-rendered-math .numerator, .mathquill-rendered-math .denominator {
+  display: block; /* The element is displayed as a block element (like paragraphs and headers). A block element has some whitespace above and below it and does not tolerate any HTML elements next to it*/
+  padding-top: .075em;
+}
+.mathquill-rendered-math .numerator {
+  border-bottom: 1px solid; /* From MathQuill programmers: black is too black, contrasts with antialised text.  My Note: Anti-Aliased Text uses shades of grey to avoid a jagged, pixelated appearance for characters and symbols. */
+  padding-left: .1em;
+  padding-right: .1em;
+}
+.mathquill-rendered-math .denominator {
+  border-top: 1px solid;
+  float: right; /* From MathQuill programmers: take out of normal flow to manipulate baseline.  My Note: The element floats the right*/
+  width: 100%; /* sets the width of an element, not including padding, borders, or margins*/
+}
+
+.mathquill-rendered-math sup .fraction, .mathquill-rendered-math sub .fraction {
+  font-size: 70%;
+  vertical-align: -.4em;
+}
+.mathquill-rendered-math sup .numerator, .mathquill-rendered-math sub .numerator {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.mathquill-rendered-math sup .denominator, .mathquill-rendered-math sub .denominator {
+  padding-top: 0;
+}
+
+.mathquill-rendered-math .latex-command-input {
+  color: inherit; /* the text color should be inherited from the parent element*/
+  font-family: "Courier New", monospace;
+  border: 1px solid gray;
+  padding-right: 1px;
+  margin-right: 1px;
+  margin-left: 2px;
+}
+.mathquill-rendered-math .latex-command-input.empty {
+  background: transparent;
+}
+
+.mathquill-rendered-math .sqrt-prefix {
+  vertical-align: top; /* The top of the element is aligned with the top of the tallest element on the line*/
+  position: relative; /* The element is positioned relative to its normal position*/
+  top: 2px; /* For relatively positioned elements, the top property sets the top edge of an element to a unit above/below its normal position.*/
+}
+.mathquill-rendered-math .sqrt-stem {
+  border-top: 1px solid; /* border-top-width, border-top-style*/
+  margin-top: 1px;
+  padding-left: .15em;
+  padding-right: .2em;
+  margin-right: .1em;
+}
+
+.mathquill-rendered-math .paren {
+  vertical-align: bottom; /* The bottom of the element is aligned with the lowest element on the line*/
+  position: relative; /* The element is positioned relative to its normal position*/
+}
+
+.mathquill-rendered-math .array {
+  vertical-align: middle; /* The element is placed in the middle of the parent element*/
+  text-align: center;
+}
+
+/* The > selector is used to select elements with a specific parent.  Elements that are not directly a child of the specified parent, are not selected.*/
+.mathquill-rendered-math .array > span {
+  display: block; /* The element is displayed as a block element (like paragraphs and headers)*/
+}
+
+.mathquill-rendered-math .non-italicized-function {
+  padding-right: .2em;
+}
+
+/*.mathquill-rendered-math .not {
+  margin-right: -.75em;
+}*/
