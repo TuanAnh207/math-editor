@@ -1,4 +1,13 @@
 /**
+ * A function to demonstrate how to dynamically create Mathquill elements that weren't in the HTML DOM on document ready
+ */
+
+function insertMathquill() {
+    $('<span></span>').appendTo('#Mathquill-placeholder').mathquill('editable');
+}
+
+
+/**
  * The following functions where copied from http://stackoverflow.com/questions/4823691/insert-an-html-element-in-a-contenteditable-element
  * Combined they insert a span, or overwrite a selection with a span
  * An example in js fiddle can be viewed at http://jsfiddle.net/timdown/XGSyn/
@@ -20,6 +29,7 @@ function insertNodeOverSelection(node, containerNode) {
 
     // Set contentNode to false for the parent node of containerNode (which is the div within the editable div)
     containerNode.parentNode.setAttribute("contentEditable","false");
+
     var sel, range, html;
     if (window.getSelection) {
         sel = window.getSelection();
