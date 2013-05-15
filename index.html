@@ -20,24 +20,18 @@
 
         <h2>Simple MathQuill Demo</h2>
 
-        <p>The following is an example how mathquill renders static math write using latex markup</p>
+        <p>The following is an example how mathquill renders static math using latex markup:</p>
 
-        <p>
-            The latex markup <q><code>x^2+\frac{d}{dx}\sqrt{x}</code></q> is rendered as <span class="mathquill-embedded-latex">\frac{d}{dx}\sqrt{x}</span>
-        </p>
+        <p>The latex markup <q><code>x^2+\frac{d}{dx}\sqrt{x}</code></q> is rendered as <span class="mathquill-embedded-latex">\frac{d}{dx}\sqrt{x}</span></p>
 
-        <p>
-            Mathquill's power is in its WYSIWYG editor, for example type <q><code>3/x^2</code></q> in the editable box <span class="mathquill-editable"></span>
-        </p>
+        <p>Mathquill's power is in its WYSIWYG editor, for example type <q><code>3/x^2</code></q> in the following editable box: <span class="mathquill-editable"></span></p>
 
-        <p>
-            This is an example of dynamically inserting a MathQuill editor into the DOM on a button click.
-        </p>
+        <p>The following button is an example of dynamically inserting a MathQuill editor into the DOM on a button click:</p>
 
         <input type="button" onmousedown="insertMathquill()" value = "Insert MathQuill Editable Box">
 
         <div id="Mathquill-placeholder">
-
+            <p>This is where the Mathquill Editable Box will be inserted:</p>
         </div>
 
     </div>
@@ -46,10 +40,10 @@
 
         <h2>ContentEditable Example</h2>
 
-        <div id="ContentEditable-1" contenteditable="true">
-            <p>The following is an editable paragraph</p>
-            <p contenteditable="false">But THIS is NOT editable</p>
-            <p>But this is this!</p>
+        <div id="ContentEditable-1" contenteditable="true" style="border: solid 1px green">
+            <p >Everything in this green box is in a div with contentEditable set to true. Notice this paragraph is editable</p>
+            <p contenteditable="false" style="border: solid .5px grey">But THIS paragraph has contentEditable set specifically to false and it is NOT editable - it CAN be deleted and moves to accommodate additions to the previous paragraph though</p>
+            <p>This new paragraph does not specifically set its contentEditable, but because it is within the editable div it can be edited.</p>
 
         </div>
     </div>
@@ -58,13 +52,14 @@
 
         <h2>Inserting a Mathquill Editable Box within a ContentEditable div Example</h2>
 
-        <!-- Changed document.createTextNode to document.createElement('span') to create an element of type span -->
+        <p>The following button adds a Mathquill Editable Box to the contentEditable region in the green box:</p>
 
-        <input type="button" onmousedown="insertNodeOverSelection(document.createElement('span'), document.getElementById('test'));" value="insert">
+        <!-- Changed document.createTextNode to document.createElement('span') to create an element of type span -->
+        <input type="button" onmousedown="insertNodeOverSelection(document.createElement('span'), document.getElementById('test'));" value="Insert Mathquill Editable Box">
 
         <div id="ContentEditable-2" contenteditable="true">
             <div id="test" style="border: solid 1px green">
-                This is where the insertion will happen
+                This is where the insertion will happen. Notice that this is also editable.
             </div>
         </div>
     </div>
