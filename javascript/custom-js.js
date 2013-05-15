@@ -14,6 +14,12 @@ function isOrContainsNode(ancestor, descendant) {
 }
 
 function insertNodeOverSelection(node, containerNode) {
+    // Add the mathquill editabe class to the span that is created in the HTML
+    //node.className = "mathquill-editable"; // Mathquill doesn't automatically mathquillify items added to the DOM!
+    // node.mathquill('editable'); // Attempt to mathquill-ify node, but I think this needs to be done as it is inserted into the DOM
+
+    // Set contentNode to false for the parent node of containerNode (which is the div within the editable div)
+    containerNode.parentNode.setAttribute("contentEditable","false");
     var sel, range, html;
     if (window.getSelection) {
         sel = window.getSelection();

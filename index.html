@@ -47,7 +47,9 @@
 
         <h2>Inserting a Mathquill Editable Box within a ContentEditable div Example</h2>
 
-        <input type="button" onmousedown="insertNodeOverSelection(document.createTextNode('<b>Hello!</b>'), document.getElementById('test'));" value="insert">
+        <!-- Changed document.createTextNode to document.createElement('span') to create an element of type span -->
+
+        <input type="button" onmousedown="insertNodeOverSelection(document.createElement('span'), document.getElementById('test'));" value="insert">
 
         <div id="ContentEditable-2" contenteditable="true">
             <div id="test" style="border: solid 1px green">
