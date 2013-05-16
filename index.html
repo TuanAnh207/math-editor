@@ -10,9 +10,19 @@
 
     <script src="javascript/mathquill.js"></script>
     <script src="javascript/custom-js.js"></script>
-
+    <script src="ckeditor/ckeditor.js"></script>
 
 </head>
+
+<textarea class="ckeditor" name="CKEditor Example"></textarea>
+
+<p>
+    My Editor:<br>
+    <textarea name="editor1">&lt;p&gt;Initial value.&lt;/p&gt;</textarea>
+    <script>
+        CKEDITOR.replace( 'editor1' );
+    </script>
+</p>
 
 <body>
     <div id="mathquill-demo">
