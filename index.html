@@ -24,6 +24,11 @@
     </script>
 </p>
 
+<div id="editable" contenteditable="true">
+    <h1>Inline Editing in Action!</h1>
+    <p>The div element that holds this text is now editable.
+</div>
+
 <body>
     <div id="mathquill-demo">
         <h1>Math Editor Demo</h1>
@@ -64,14 +69,15 @@
 
         <p>The following button adds a Mathquill Editable Box to the contentEditable region in the green box:</p>
 
-        <!-- Changed document.createTextNode to document.createElement('span') to create an element of type span -->
-        <input type="button" onmousedown="insertNodeOverSelection(document.createElement('span'), document.getElementById('test'));" value="Insert Mathquill Editable Box">
-
         <div id="ContentEditable-2" contenteditable="true">
             <div id="test" style="border: solid 1px green">
                 This is where the insertion will happen. Notice that this is also editable.
             </div>
         </div>
+
+        <!-- Changed document.createTextNode to document.createElement('span') to create an element of type span -->
+        <input type="button" onmousedown="insertNodeOverSelection(document.createElement('span'), document.getElementById('ContentEditable-2'));" value="Insert Mathquill Editable Box">
+
     </div>
 
 </body>
