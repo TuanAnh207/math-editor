@@ -14,21 +14,6 @@
 
 </head>
 
-<textarea class="ckeditor" name="CKEditor Example"></textarea>
-
-<p>
-    My Editor:<br>
-    <textarea name="editor1">&lt;p&gt;Initial value.&lt;/p&gt;</textarea>
-    <script>
-        CKEDITOR.replace( 'editor1' );
-    </script>
-</p>
-
-<div id="editable" contenteditable="true">
-    <h1>Inline Editing in Action!</h1>
-    <p>The div element that holds this text is now editable.
-</div>
-
 <body>
     <div id="mathquill-demo">
         <h1>Math Editor Demo</h1>
@@ -57,7 +42,7 @@
 
         <div id="ContentEditable-1" contenteditable="true" style="border: solid 1px green">
             <p >Everything in this green box is in a div with contentEditable set to true. Notice this paragraph is editable</p>
-            <p contenteditable="false" style="border: solid .5px grey">But THIS paragraph has contentEditable set specifically to false and it is NOT editable - it CAN be deleted and moves to accommodate additions to the previous paragraph though</p>
+            <p contenteditable="false" style="border: solid .5px grey">But THIS paragraph has contentEditable set specifically to false and usually it is NOT editable (HOWEVER CKEditor overrides it and changes it dynamically so that it now IS editable), when not editable it CAN be deleted and moves to accommodate additions to the previous paragraph though</p>
             <p>This new paragraph does not specifically set its contentEditable, but because it is within the editable div it can be edited.</p>
 
         </div>
@@ -67,7 +52,7 @@
 
         <h2>Inserting a Mathquill Editable Box within a ContentEditable div Example</h2>
 
-        <p>The following button adds a Mathquill Editable Box to the contentEditable region in the green box:</p>
+        <p>The following button below (moved so CKEditor does not block) adds a Mathquill Editable Box to the contentEditable region in the green box (note: CKEditor overrides and removes the CSS for the green box dynamically):</p>
 
         <div id="ContentEditable-2" contenteditable="true">
             <div id="test" style="border: solid 1px green">
@@ -77,6 +62,23 @@
 
         <!-- Changed document.createTextNode to document.createElement('span') to create an element of type span -->
         <input type="button" onmousedown="insertNodeOverSelection(document.createElement('span'), document.getElementById('ContentEditable-2'));" value="Insert Mathquill Editable Box">
+
+    </div>
+
+    <div id="CKEditor Examples">
+
+        <h2>Examples of inserting the CKEditor in a frame and inline</h2>
+
+        <p>The following automatically adds a CKEditor frame to any textarea with a class of ckeditor:</p>
+
+        <textarea class="ckeditor" name="CKEditor Example"></textarea>
+
+        <p>The following automatically adds an inline CKEditor to any div with contentEditible set to true. Note how CKEditor dynamically changes the div id from editable</p>
+
+        <div id="editable" contenteditable="true">
+            <h1>Inline Editing in Action!</h1>
+            <p>The div element that holds this text is now editable.
+        </div>
 
     </div>
 
