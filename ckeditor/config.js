@@ -35,4 +35,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Make dialogs simpler.
 	config.removeDialogTabs = 'image:advanced;link:advanced';
+
+    // Add my custom plugins
+    config.extraPlugins = 'mathquillplugin,timestamp';
 };
