@@ -38,4 +38,7 @@ CKEDITOR.editorConfig = function( config ) {
 
     // Add my custom plugins
     config.extraPlugins = 'mathquillplugin,timestamp';
+
+    // Turn off all advanced filtering
+    config.allowedContent = true;
 };
