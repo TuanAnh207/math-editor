@@ -10,14 +10,14 @@ CKEDITOR.plugins.add( 'mathquillplugin', {
 
                 // Check for an empty string or all whitespace using jQuery trim method
                 if (!selectedText || $.trim(selectedText) == '') {
-                    // If empty or all whitespace set initial math value
-                    selectedText = 'Insert-Math-Here';
+                    // If empty or all whitespace set initial, temporary value
+                    selectedText = 'M';
 
                     // add a span with a temporary ID used for the jQuery selector
                     editor.insertHtml( '<span id="tempID">' + selectedText + '</span>' );
 
-                    // convert to a Mathquill editable box and then remove the temporary ID
-                    $('#tempID').mathquill('editable').removeAttr('id');
+                    // convert to a Mathquill editable box and then remove the temporary ID and temporary value
+                    $('#tempID').mathquill('editable').removeAttr('id').children(':not(:first-child)').remove();
                 }
                 else {
                     // If text was selected
