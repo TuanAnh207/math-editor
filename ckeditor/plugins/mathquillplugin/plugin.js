@@ -1,5 +1,8 @@
 CKEDITOR.plugins.add( 'mathquillplugin', {
+
+    // Register the icon. It must match the button name.
     icons: 'mathquillplugin',
+
     init: function( editor ) {
         //Plugin logic goes here.
         editor.addCommand( 'insertMathquill', {
@@ -33,7 +36,7 @@ CKEDITOR.plugins.add( 'mathquillplugin', {
                 }
             }
         });
-        editor.ui.addButton( 'Mathquill_Plugin', {
+        editor.ui.addButton( 'mathquillplugin', {
             label: 'Insert Mathquill',
             command: 'insertMathquill',
             toolbar: 'insert'
