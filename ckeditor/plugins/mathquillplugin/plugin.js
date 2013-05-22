@@ -14,7 +14,7 @@ CKEDITOR.plugins.add( 'mathquillplugin', {
                     selectedText = 'Placeholder';
 
                     // add a span with a temporary ID used for the jQuery selector
-                    editor.insertHtml( '<span id="tempID">' + selectedText + '</span>' );
+                    editor.insertHtml( '<span id="tempID" contenteditable="false">' + selectedText + '</span>' );
 
                     // convert to a Mathquill editable box and then remove the temporary ID and temporary value
                     // set the starting contents of the Mathquill editable to nothing
@@ -25,7 +25,7 @@ CKEDITOR.plugins.add( 'mathquillplugin', {
                     // If text was selected
 
                     // add a span with a temporary ID just for the jQuery selector
-                    editor.insertHtml( '<span id="tempID">' + selectedText + '</span>' );
+                    editor.insertHtml( '<span id="tempID" contenteditable="false">' + selectedText + '</span>' );
 
                     // convert to a Mathquill editable box and then remove the temporary ID
                     // note: without focus there's a weird bug where you can enter non editable math in the box
